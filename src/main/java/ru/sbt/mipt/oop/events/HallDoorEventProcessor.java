@@ -11,7 +11,7 @@ public class HallDoorEventProcessor implements SensorEventProcessor {
 
     private SmartHome smartHome;
 
-    private DoorEventProcessor doorEventProcessor;
+    public HallDoorEventProcessor (SmartHome smartHome) {this.smartHome = smartHome;}
 
     private static void sendCommand(SensorCommand command) {
         System.out.println("Pretent we're sending command " + command);

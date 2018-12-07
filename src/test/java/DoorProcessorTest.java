@@ -3,6 +3,7 @@ import ru.sbt.mipt.oop.events.DoorEventProcessor;
 import ru.sbt.mipt.oop.events.DoorIterator;
 import org.junit.Test;
 import org.junit.Assert;
+import ru.sbt.mipt.oop.events.HallDoorEventProcessor;
 
 import java.util.ArrayList;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
@@ -20,6 +21,7 @@ public class DoorProcessorTest {
         lights.add(light);
         ArrayList<Door> doors = new ArrayList<Door>();
         doors.add(door);
+
         Room room = new Room(lights,doors, "kitchen");
         smartHome.addRoom(room);
 
@@ -32,9 +34,20 @@ public class DoorProcessorTest {
 
         SensorEvent event1 = new SensorEvent(DOOR_CLOSED, door.getId());
 
-        System.out.println(!door.isOpen());
+        System.out.println(door.isOpen());
         doorEventProcessor.processor(event1);
         Assert.assertFalse(door.isOpen());
+
+        Room roomhall = new Room(lights,doors, "hall");
+        smartHome.addRoom(roomhall);
+
+        HallDoorEventProcessor hallDoorEventProcessor = new HallDoorEventProcessor(smartHome);
+
+        System.out.println(door.isOpen());
+        hallDoorEventProcessor.processor(event1);
+        Assert.assertFalse(door.isOpen());
+        System.out.println(light.isOn());
+        Assert.assertFalse(light.isOn());
 
     }
 }
