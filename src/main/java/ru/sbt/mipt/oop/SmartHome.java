@@ -31,6 +31,10 @@ public class SmartHome {
         return this.alarmContext;
     }
 
+    public void setAlarmSystem(AlarmContext alarmContext){
+        this.alarmContext = alarmContext;
+    }
+
     public void executeAction(Action action) {
         action.execute(this);
         Iterator<Room> roomIterator = this.rooms.iterator();

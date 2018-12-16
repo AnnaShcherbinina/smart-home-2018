@@ -10,14 +10,17 @@ public class AlarmContext {
 
     public void activate(String password) {
         state.activate(password);
+        setState(state.getState());
     }
 
     public void deactivate(String password) {
         state.deactivate(password);
+        setState(state.getState());
     }
 
     public void alarm() {
         state.alarm();
+        setState(state.getState());
     }
 
     public State getState(){return state;}

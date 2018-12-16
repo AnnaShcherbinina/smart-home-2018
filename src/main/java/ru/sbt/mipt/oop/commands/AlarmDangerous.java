@@ -2,6 +2,7 @@ package ru.sbt.mipt.oop.commands;
 
 import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.alarm.AlarmContext;
+import ru.sbt.mipt.oop.alarm.State;
 
 public class AlarmDangerous implements Command {
 
@@ -16,6 +17,8 @@ public class AlarmDangerous implements Command {
     @Override
     public void execute() {
         AlarmContext alarmContext = smartHome.getAlarmSystem();
-        alarmContext.getState().alarm();
+        State state = alarmContext.getState();
+        state.alarm();
+        alarmContext.setState(state.getState());
     }
 }

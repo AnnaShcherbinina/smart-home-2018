@@ -6,11 +6,11 @@ import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.events.DoorEventProcessor;
 import ru.sbt.mipt.oop.events.LightEventProcessor;
 
-public class LightOff implements Command {
+public class LightOffAll implements Command {
 
     SmartHome smartHome;
 
-    public LightOff(SmartHome smartHome){
+    public LightOffAll(SmartHome smartHome){
         this.smartHome = smartHome;
     }
 

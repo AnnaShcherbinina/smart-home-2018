@@ -7,9 +7,12 @@ public class AlarmActivate implements State {
     private String password;
     private State state;
 
-    public void setState(State state){
+    private void setState(State state){
             this.state = state;
     }
+
+    @Override
+    public State getState(){return this.state;}
 
     @Override
     public void activate(String password) {

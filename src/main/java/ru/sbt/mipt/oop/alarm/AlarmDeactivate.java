@@ -8,6 +8,7 @@ public class AlarmDeactivate implements State {
     private void setState(State state) {
         this.state = state;
     }
+    public State getState(){return state;}
 
     @Override
     public void activate(String password) {

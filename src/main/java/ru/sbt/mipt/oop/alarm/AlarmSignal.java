@@ -7,6 +7,9 @@ public class AlarmSignal implements State{
     public void setState(State s) {state = s;}
 
     @Override
+    public State getState(){return this.state;}
+
+    @Override
     public void activate(String password) {
         System.out.println("ALARM!");
     }
