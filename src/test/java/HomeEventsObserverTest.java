@@ -21,15 +21,15 @@ public class HomeEventsObserverTest {
     @Test
     public void testObserver() {
 
-        DoorEventProcessor doorEventProcessor = mock(DoorEventProcessor.class);
+        LightEventProcessor lightEventProcessor = mock(LightEventProcessor.class);
         ArrayList<SensorEventProcessor> handlers = new ArrayList<>();
-        handlers.add(doorEventProcessor);
+        handlers.add(lightEventProcessor);
 
         HomeEventsObserver homeEventsObserver = new HomeEventsObserver(handlers);
 
         homeEventsObserver.loop();
 
-        verify(doorEventProcessor, Mockito.atLeast(1)).processor(Mockito.any());
+        verify(lightEventProcessor, Mockito.atLeast(1)).processor((SensorEvent) Mockito.any());
 
     }
 }

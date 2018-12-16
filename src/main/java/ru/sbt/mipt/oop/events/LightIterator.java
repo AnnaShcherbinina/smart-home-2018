@@ -7,7 +7,7 @@ import ru.sbt.mipt.oop.SmartHome;
 import java.util.Iterator;
 import java.util.List;
 
-public class LightIterator implements Iterator {
+public class LightIterator implements Iterable {
 
     private List<Room> rooms;
     private int currentLight;
@@ -19,36 +19,40 @@ public class LightIterator implements Iterator {
         currentRoom = 0;
     }
 
-    public class Result {
-        Light nextLight;
-        String nextRoom;
-    }
+    private Light nextLight;
 
     @Override
-    public boolean hasNext() {
-        if(currentRoom < rooms.size())return true;
-        if(currentRoom == rooms.size()-1) {
-            if (currentLight < rooms.get(currentRoom).getLights().size()) return true;
-        }
-        return false;
-    }
-
-    Result result = new Result();
-
-    public Result next() {
-        if (currentRoom < rooms.size()) {
-            if (currentLight < rooms.get(currentRoom).getLights().size()) {
-                result.nextLight = ((List<Light>) rooms.get(currentRoom).getLights()).get(currentLight);
-                result.nextRoom = rooms.get(currentRoom).getName();
-                currentLight++;
+    public Iterator<Light> iterator() {
+        return new Iterator<Light>() {
+            @Override
+            public boolean hasNext() {
+                if (currentRoom < rooms.size()) return true;
+                if (currentRoom == rooms.size() - 1) {
+                    if (currentLight < rooms.get(currentRoom).getLights().size()) return true;
+                }
+                return false;
             }
-            // moving to next room
-            else {
-                currentRoom++;
-                currentLight = 0;
-                return next();
+
+            @Override
+            public void remove() {
+
             }
-        }
-        return result;
+
+            public Light next() {
+                if (currentRoom < rooms.size()) {
+                    if (currentLight < rooms.get(currentRoom).getLights().size()) {
+                        nextLight = ((List<Light>) rooms.get(currentRoom).getLights()).get(currentLight);
+                        currentLight++;
+                    }
+                    // moving to next room
+                    else {
+                        currentRoom++;
+                        currentLight = 0;
+                        return next();
+                    }
+                }
+                return nextLight;
+            }
+        };
     }
 }

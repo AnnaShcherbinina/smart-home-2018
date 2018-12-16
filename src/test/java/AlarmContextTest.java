@@ -15,13 +15,13 @@ public class AlarmContextTest {
         AlarmContext alarmContext = new AlarmContext();
         alarmContext.setState(alarmActivate);
         alarmContext.setPassword(password);
-        alarmContext.nextActive();
+        alarmContext.deactivate(password);
         Assert.assertTrue(alarmContext.getState() instanceof AlarmDeactivate);
-        alarmContext.nextActive();
+        alarmContext.activate(password);
         Assert.assertTrue(alarmContext.getState() instanceof AlarmActivate);
         String p = "1234";
         alarmContext.setPassword(p);
-        alarmContext.nextActive();
+        alarmContext.alarm();
         Assert.assertTrue(alarmContext.getState() instanceof AlarmSignal);
     }
 }

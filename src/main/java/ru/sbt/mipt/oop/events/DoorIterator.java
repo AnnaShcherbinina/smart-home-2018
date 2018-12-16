@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class DoorIterator implements Iterator {
+public class DoorIterator implements Iterable<Door> {
 
     private List<Room> rooms;
     private int currentDoor;
@@ -27,30 +27,43 @@ public class DoorIterator implements Iterator {
     }
 
     @Override
-    public boolean hasNext() {
-        if(currentRoom < rooms.size())return true;
-        if(currentRoom == rooms.size()-1) {
-            if (currentDoor < rooms.get(currentRoom).getDoors().size()) return true;
-        }
-        return false;
+    public Iterator<Door> iterator() {
+        return new Iterator<Door>() {
+            @Override
+            public void remove() {
+            }
+
+            @Override
+            public boolean hasNext() {
+                if (currentRoom < rooms.size()) return true;
+                if (currentRoom == rooms.size() - 1) {
+                    if (currentDoor < rooms.get(currentRoom).getDoors().size()) return true;
+                }
+                return false;
+            }
+
+            //Result result = new Result();
+
+            Door nextDoor;
+
+            @Override
+            public Door next() {
+                if (currentRoom < rooms.size()) {
+                    if (currentDoor < rooms.get(currentRoom).getDoors().size()) {
+                        nextDoor = ((List<Door>) rooms.get(currentRoom).getDoors()).get(currentDoor);
+                        //result.nextRoom = rooms.get(currentRoom).getName();
+                        currentDoor++;
+                    }
+                    // moving to next room
+                    else {
+                        currentRoom++;
+                        currentDoor = 0;
+                        return next();
+                    }
+                }
+                return nextDoor;
+            }
+        };
     }
 
-    Result result = new Result();
-
-    public Result next() {
-        if (currentRoom < rooms.size()) {
-            if (currentDoor < rooms.get(currentRoom).getDoors().size()) {
-                result.nextDoor = ((List<Door>) rooms.get(currentRoom).getDoors()).get(currentDoor);
-                result.nextRoom = rooms.get(currentRoom).getName();
-                currentDoor++;
-            }
-            // moving to next room
-            else {
-                currentRoom++;
-                currentDoor = 0;
-                return next();
-            }
-        }
-        return result;
-    }
 }

@@ -5,6 +5,8 @@ import ru.sbt.mipt.oop.Room;
 import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
 
+import java.util.Iterator;
+
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
@@ -21,16 +23,16 @@ public class LightEventProcessor implements SensorEventProcessor {
         if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
             // событие от источника света
             LightIterator lightIterator = new LightIterator(smartHome);
-            while (lightIterator.hasNext()) {
-                Light light = lightIterator.next().nextLight;
-                String room = lightIterator.next().nextRoom;
+            Iterator<Light> lightIterator1 = lightIterator.iterator();
+            while (lightIterator1.hasNext()) {
+                Light light = lightIterator1.next();
                 if (light.getId().equals(event.getObjectId())) {
                     if (event.getType() == LIGHT_ON) {
                         light.setOn(true);
-                        System.out.println("Light " + light.getId() + " in room " + room + " was turned on.");
+                        System.out.println("Light " + light.getId() + " was turned on.");
                     } else {
                         light.setOn(false);
-                        System.out.println("Light " + light.getId() + " in room " + room + " was turned off.");
+                        System.out.println("Light " + light.getId() + " was turned off.");
                     }
                 }
             }
