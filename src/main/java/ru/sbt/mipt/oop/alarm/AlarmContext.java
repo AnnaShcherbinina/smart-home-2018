@@ -8,25 +8,17 @@ public class AlarmContext {
     public void setState(State s) {state = s;}
     public void setPassword(String p) {password = p;}
 
-    public void nextActive() {
-        if ((state instanceof AlarmActivate) && (password.equals("12345"))) {
-            //System.out.println(state instanceof AlarmActivate);
-            setState(new AlarmDeactivate());
-        }
-        else if ((state instanceof AlarmActivate) && (password != "12345")) {
-            setState(new AlarmSignal());
-        }
-        else if ((state instanceof AlarmDeactivate) && (password.equals("12345"))) {
-            setState(new AlarmActivate());
-        }
-        else if ((state instanceof AlarmSignal) && (password.equals("12345"))) {
-            setState(new AlarmActivate());
-        }
+    public void activate(String password) {
+        state.activate(password);
+    }
+
+    public void deactivate(String password) {
+        state.deactivate(password);
+    }
+
+    public void alarm() {
+        state.alarm();
     }
 
     public State getState(){return state;}
-
-    public void method(){
-        state.method();
-    }
 }

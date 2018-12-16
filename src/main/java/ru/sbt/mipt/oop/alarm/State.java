@@ -4,5 +4,7 @@ import jdk.nashorn.internal.runtime.Context;
 
 public interface State {
 
-    void method();
+    void activate(String password);
+    void deactivate(String password);
+    void alarm();
 }
