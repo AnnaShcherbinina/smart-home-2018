@@ -37,7 +37,6 @@ public class Application {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(Configurationn.class);
         EventsManager sensorEventsManager = context.getBean(EventsManager.class);
         sensorEventsManager.start();
-
     }
 
 }
