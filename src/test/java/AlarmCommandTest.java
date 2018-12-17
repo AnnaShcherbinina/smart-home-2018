@@ -17,19 +17,6 @@ public class AlarmCommandTest {
     public void TestAlarmCommand()
     {
         SmartHome smartHome = new SmartHome();
-//        Light light = new Light("1", true);
-//        Door door = new Door(true,"1");
-//        ArrayList<Light> lights = new ArrayList<Light>();
-//        lights.add(light);
-//        ArrayList<Door> doors = new ArrayList<Door>();
-//        doors.add(door);
-//
-//        Room room = new Room(lights,doors, "kitchen");
-//        smartHome.addRoom(room);
-
-        //State state = new AlarmDeactivate();
-        //smartHome.getAlarmSystem().setState(state);
-
         AlarmContext alarmContext = new AlarmContext();
         State state = new AlarmDeactivate();
         alarmContext.setState(state);
@@ -44,5 +31,4 @@ public class AlarmCommandTest {
         alarmDangerous.execute();
         Assert.assertTrue(alarmContext1.getState() instanceof AlarmSignal);
     }
-
 }
