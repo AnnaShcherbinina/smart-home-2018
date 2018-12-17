@@ -60,7 +60,7 @@ public class SmartHome {
         this.executeAction(object -> {
             if (object instanceof Light) {
                 Light light = (Light) object;
-                light.setOn(false);
+                light.setOn(true);
                 SensorCommand command = new SensorCommand(CommandType.LIGHT_ON, light.getId());
                 System.out.println("Pretent we're sending command " + command);
             }

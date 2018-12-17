@@ -10,6 +10,8 @@ public class LightOnHall implements Command {
 
     private SmartHome smartHome;
 
+    public LightOnHall(SmartHome smartHome){this.smartHome = smartHome;}
+
     @Override
     public void execute() {
         LightEventProcessor lightEventProcessor = new LightEventProcessor(smartHome);
