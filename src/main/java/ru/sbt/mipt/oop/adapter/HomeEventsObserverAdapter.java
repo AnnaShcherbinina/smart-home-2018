@@ -13,6 +13,11 @@ public class HomeEventsObserverAdapter implements EventsManager {
     private List<SensorEventProcessor> eventProcessorList;
     private RandomGenerateEvent randomGenerateEvent;
 
+    public HomeEventsObserverAdapter(ArrayList<SensorEventProcessor> eventProcessorsList, RandomGenerateEvent randomGenerateEvent) {
+        this.eventProcessorList = eventProcessorsList;
+        this.randomGenerateEvent=randomGenerateEvent;
+    }
+
     @Override
     public void start() {
         SensorEvent event = randomGenerateEvent.getNextSensorEvent();
@@ -28,11 +33,6 @@ public class HomeEventsObserverAdapter implements EventsManager {
 
     public void setRandomGenerateEvent(RandomGenerateEvent randomGenerateEvent) {
         this.randomGenerateEvent = randomGenerateEvent;
-    }
-
-    public HomeEventsObserverAdapter(ArrayList<SensorEventProcessor> eventProcessorsList, RandomGenerateEvent randomGenerateEvent) {
-        this.eventProcessorList = eventProcessorsList;
-        this.randomGenerateEvent=randomGenerateEvent;
     }
 
     public void addEventProcessor(SensorEventProcessor eventProcessor) {

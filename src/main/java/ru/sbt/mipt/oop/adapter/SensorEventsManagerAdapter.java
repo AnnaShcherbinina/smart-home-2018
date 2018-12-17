@@ -25,4 +25,9 @@ public class SensorEventsManagerAdapter implements EventsManager {
         sensorEventsManager.start();
     }
 
+    @Override
+    public void addEventProcessor(SensorEventProcessor processor) {
+        sensorEventsManager.registerEventHandler(new HandlerEventProcessor(processor));
+    }
+
 }
