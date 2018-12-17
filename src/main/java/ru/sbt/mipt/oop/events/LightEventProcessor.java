@@ -14,7 +14,7 @@ public class LightEventProcessor implements SensorEventProcessor {
 
     private SmartHome smartHome;
 
-    public LightEventProcessor(SmartHome smartHome){
+    public LightEventProcessor(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
@@ -22,22 +22,25 @@ public class LightEventProcessor implements SensorEventProcessor {
     public void processor(SensorEvent event) {
         if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
             // событие от источника света
-            LightIterator lightIterator = new LightIterator(smartHome);
-            Iterator<Light> lightIterator1 = lightIterator.iterator();
-            while (lightIterator1.hasNext()) {
-                Light light = lightIterator1.next();
-                if (light.getId().equals(event.getObjectId())) {
-                    if (event.getType() == LIGHT_ON) {
-                        light.setOn(true);
-                        System.out.println("Light " + light.getId() + " was turned on.");
-                    } else {
-                        light.setOn(false);
-                        System.out.println("Light " + light.getId() + " was turned off.");
+            smartHome.executeAction(obj -> {
+                if (obj instanceof Light) {
+                    Light light = (Light) obj;
+                    if (light.getId().equals(event.getObjectId())) {
+                        if (event.getType() == LIGHT_ON) {
+                            light.setOn(true);
+                            System.out.println("Light " + light.getId() + " was turned on.");
+                        } else {
+                            light.setOn(false);
+                            System.out.println("Light " + light.getId() + " was turned off.");
+                        }
                     }
                 }
-            }
+            });
         }
     }
 }
+
+
+
 
 

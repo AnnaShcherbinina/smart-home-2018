@@ -1,6 +1,5 @@
 import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.events.DoorEventProcessor;
-import ru.sbt.mipt.oop.events.DoorIterator;
 import org.junit.Test;
 import org.junit.Assert;
 import ru.sbt.mipt.oop.events.HallDoorEventProcessor;

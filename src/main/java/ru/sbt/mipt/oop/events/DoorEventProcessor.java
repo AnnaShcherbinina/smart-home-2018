@@ -17,22 +17,22 @@ public class DoorEventProcessor implements SensorEventProcessor {
 
     @Override
     public void processor(SensorEvent event) {
-        DoorIterator doorIterator = new DoorIterator(smartHome);
         if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
             // событие от двери
-            Iterator<Door> doorIterator1 = doorIterator.iterator();
-            while (doorIterator1.hasNext()) {
-                Door door = doorIterator1.next();
-                if (door.getId().equals(event.getObjectId())) {
-                    if (event.getType() == DOOR_OPEN) {
-                        door.setOpen(true);
-                        System.out.println("Door " + door.getId() + " was opened.");
-                    } else {
-                        door.setOpen(false);
-                        System.out.println("Door " + door.getId() + " was closed.");
+            smartHome.executeAction(obj -> {
+                if (obj instanceof Door){
+                    Door door = (Door) obj;
+                    if (door.getId().equals(event.getObjectId())) {
+                        if (event.getType() == DOOR_OPEN) {
+                            door.setOpen(true);
+                            System.out.println("Door " + door.getId() + " was opened.");
+                        } else {
+                            door.setOpen(false);
+                            System.out.println("Door " + door.getId() + " was closed.");
+                        }
                     }
                 }
-            }
+            });
         }
     }
 }
