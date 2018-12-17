@@ -15,7 +15,7 @@ public class LightCommandTest {
     @Test
     public void TestLightCommand() {
         SmartHome smartHome = new SmartHome();
-        Light light = new Light("1", true);
+        Light light = new Light("1", false);
         Door door = new Door(true, "1");
         ArrayList<Light> lights = new ArrayList<Light>();
         lights.add(light);
