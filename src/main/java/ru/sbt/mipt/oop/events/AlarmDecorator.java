@@ -11,10 +11,12 @@ public class AlarmDecorator implements SensorEventProcessor {
 
     private SmartHome smartHome;
     private SensorEventProcessor sensorEventProcessor;
+    private AlarmContext alarmContext;
 
     public AlarmDecorator(SensorEventProcessor sensorEventProcessor, SmartHome smartHome) {
         this.sensorEventProcessor = sensorEventProcessor;
         this.smartHome = smartHome;
+        this.alarmContext = smartHome.getAlarmSystem();
     }
 
     @Override
@@ -27,7 +29,7 @@ public class AlarmDecorator implements SensorEventProcessor {
             System.out.println("Sending sms");
             return;
         }
-
+        sensorEventProcessor.processor(event);
     }
 }
 
