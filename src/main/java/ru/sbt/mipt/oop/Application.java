@@ -1,6 +1,9 @@
 package ru.sbt.mipt.oop;
 
 import com.google.gson.Gson;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import ru.sbt.mipt.oop.adapter.EventsManager;
 import ru.sbt.mipt.oop.events.DoorEventProcessor;
 import ru.sbt.mipt.oop.events.HallDoorEventProcessor;
 import ru.sbt.mipt.oop.events.LightEventProcessor;
@@ -17,19 +20,23 @@ public class Application {
 
     public static void main(String... args) throws IOException {
         // считываем состояние дома из файла
-        Gson gson = new Gson();
-        String json = new String(Files.readAllBytes(Paths.get("smart-home-1.js")));
-        SmartHome smartHome = gson.fromJson(json, SmartHome.class);
-        // начинаем цикл обработки событий
-        DoorEventProcessor doorEventProcessor = new DoorEventProcessor(smartHome);
-        LightEventProcessor lightEventProcessor = new LightEventProcessor(smartHome);
-        HallDoorEventProcessor hallDoorEventProcessor = new HallDoorEventProcessor(smartHome);
-        ArrayList<SensorEventProcessor> handlers = new ArrayList<>();
-        handlers.add(doorEventProcessor);
-        handlers.add(lightEventProcessor);
-        handlers.add(hallDoorEventProcessor);
-        HomeEventsObserver homeEventsObserver = new HomeEventsObserver(handlers);
-        homeEventsObserver.loop();
+//        Gson gson = new Gson();
+//        String json = new String(Files.readAllBytes(Paths.get("smart-home-1.js")));
+//        SmartHome smartHome = gson.fromJson(json, SmartHome.class);
+//        // начинаем цикл обработки событий
+//        DoorEventProcessor doorEventProcessor = new DoorEventProcessor(smartHome);
+//        LightEventProcessor lightEventProcessor = new LightEventProcessor(smartHome);
+//        HallDoorEventProcessor hallDoorEventProcessor = new HallDoorEventProcessor(smartHome);
+//        ArrayList<SensorEventProcessor> handlers = new ArrayList<>();
+//        handlers.add(doorEventProcessor);
+//        handlers.add(lightEventProcessor);
+//        handlers.add(hallDoorEventProcessor);
+//        HomeEventsObserver homeEventsObserver = new HomeEventsObserver(handlers);
+//        homeEventsObserver.loop();
+
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(Configurationn.class);
+        EventsManager sensorEventsManager = context.getBean(EventsManager.class);
+        sensorEventsManager.start();
 
     }
 
